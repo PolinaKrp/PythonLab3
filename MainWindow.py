@@ -1,4 +1,5 @@
 import os
+import sys
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QMessageBox
@@ -241,6 +242,54 @@ class Ui_MainWindow(object):
         error.setStandardButtons(QMessageBox.Ok)
         error.exec_()
 
+
+    def task1_exec(self) -> None:
+        '''This function execute task 1 form second lab.'''
+        path = self.PathToDirOfDataset.text()
+        if os.path.isdir(path):
+            try:
+                create_csv_annotation(path.split(
+                    "\\")[-1], "Task1annotation.csv")
+            except:
+                self.ErrorMessage2()
+        else:
+            self.ErrorMessage()
+
+
+    def task2_exec(self) -> None:
+        '''This function execute task 2 form second lab.'''
+        path = self.PathToDirOfDataset.text()
+        if os.path.isdir(path):
+            try:
+                create_copy_dataset(path.split(
+                    "\\")[-1], "Task2dataset", "Task2Annotation.csv")
+            except:
+                self.ErrorMessage2()
+        else:
+            self.ErrorMessage()
+
+
+    def task3_exec(self) -> None:
+        '''This function execute task 3 form second lab.'''
+        path = self.PathToDirOfDataset.text()
+        if os.path.isdir(path):
+            try:
+                create_randomname_file(
+                    "Task3Annotation.csv", "Task3Dataset", path.split("\\")[-1])
+            except:
+                self.ErrorMessage2()
+        else:
+            self.ErrorMessage()
+
+
+    if __name__ == "__main__":
+        print('Get Started!')
+        app = QtWidgets.QApplication(sys.argv)
+        MainWindow = QtWidgets.QMainWindow()
+        ui = Ui_MainWindow()
+        ui.setupUi(MainWindow)
+        MainWindow.show()
+        sys.exit(app.exec_())
 
 
 
