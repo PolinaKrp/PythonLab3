@@ -210,54 +210,38 @@ class Ui_MainWindow(object):
         self.Task3.clicked.connect(self.task3_exec)
 
 
-    def next_leopard(self) -> None:
-        '''This function is Iterator.
-        It displays the next image of leopard on the screen untill the end.
-        After that it begins with start.'''
-        if self.__iterator_leopard.path == "":
-            path = self.PathToDataset.text()
-            if os.path.isdir(path):
-                self.__iterator_leopard.path_init(os.path.join(path, "leopard"))
-                self.__iterator_leopard.file_names_init()
-                self.__iterator_leopard.limit_init()
-                self.label_2.setPixmap(QtGui.QPixmap(
-                self.__iterator_leopard.__next__()))
-            else:
-                self.ErrorMessage()
-        else:
-            self.label_2.setPixmap(QtGui.QPixmap(
-            self.__iterator_leopard.__next__()))
+    def ErrorMessage(self) -> None:
+        '''This function displays error message that dir does not exist.'''
+        error = QMessageBox()
+        error.setWindowTitle("Error")
+        error.setText(
+        "Dir with that path does not exist.\nTry again.")
+        error.setIcon(QMessageBox.Warning)
+        error.setStandardButtons(QMessageBox.Ok)
+        error.exec_()
 
 
-    def next_tiger(self) -> None:
-        '''This function is Iterator.
-        It displays the next image of tiger on the screen untill the end.
-        After that it begins with start.'''
-        if self.__iterator_tiger.path == "":
-            path = self.PathToDataset.text()
-            if os.path.isdir(path):
-                self.__iterator_tiger.path_init(os.path.join(path, "tiger"))
-                self.__iterator_tiger.file_names_init()
-                self.__iterator_tiger.limit_init()
-                self.label_2.setPixmap(QtGui.QPixmap(
-                self.__iterator_tiger.__next__()))
-            else:
-                self.ErrorMessage()
-        else:
-            self.label_2.setPixmap(QtGui.QPixmap(
-            self.__iterator_tiger.__next__()))
+    def ErrorMessage2(self) -> None:
+        '''This function displays error message that dir does not contain.'''
+        error = QMessageBox()
+        error.setWindowTitle("Error")
+        error.setText(
+        "This dir doesn't contain dataset's objects.\nTry again.")
+        error.setIcon(QMessageBox.Warning)
+        error.setStandardButtons(QMessageBox.Ok)
+        error.exec_()
+
+
+    def ErrorMessage3(self) -> None:
+        '''This function displays error message that pictures are over.'''
+        error = QMessageBox()
+        error.setWindowTitle("Error")
+        error.setText("Pictures are over.\nThey will start anew.")
+        error.setIcon(QMessageBox.Warning)
+        error.setStandardButtons(QMessageBox.Ok)
+        error.exec_()
 
 
 
-    def create_annotation(self) -> None:
-        '''This function creates csv file with abs path of class of dataset.'''
-        path_to_dataset = self.PathToDataset.text()
-        if os.path.isdir(path_to_dataset):
-            try:
-                create_csv_annotation(
-                path_to_dataset.split("\\")[-1], "annotation.csv")
-            except:
-                self.ErrorMessage2()
-        else:
-            self.ErrorMessage()
+
 
